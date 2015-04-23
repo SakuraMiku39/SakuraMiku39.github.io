@@ -2,3 +2,22 @@ body {
 	background-color:#B5FFE3;
 		color: #4A9CF7;
 }
+h1
+{
+	line-height:30px;
+	font-size:22px;
+	text-align:center;
+}
+h2
+{
+	line-height:8px;
+	font-size:15px;
+	position:absolute;
+	left:15px;
+}
+h4
+{
+	font-size:14px;
+	font-weight:bold;
+	line-height:1px;
+}
