@@ -1,0 +1,33 @@
+body
+{
+	background-color: #4A9CF7;
+	color:#604D3F;
+}
+h0
+{
+	color:#000;	
+}
+h1
+{
+	line-height:30px;
+	font-size:22px;
+	text-align:center;
+}
+h2
+{
+	line-height:8px;
+	font-size:15px;
+	left:15px;
+	position:absolute;
+}
+h4
+{
+	font-size:14px;
+	font-weight:bold;
+	line-height:2px;
+}
+h5
+{
+	font-size:12px;
+	color:#DD1542;
+}
