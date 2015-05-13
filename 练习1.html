@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>拼图游戏</title>
+<style type="text/css">
+#game_panel{
+   position:absolute;
+   width:900px;
+   height:660px;
+   left:300px;
+   top:50px;
+   border:1px solid #c3c3c3;
+}
+.alldiv{
+   cursor:pointer;
+   position:absolute;
+   width:300px;
+   height:220px;
+   border:1px solid #c3c3c3;
+   background-image:url("Island Girl.jpg");
+}
+</style>
+<script type="text/javascript">
+var movex = 600,movey = 440;     //空白块的坐标     //鼠标点击图块的坐标
+var addx = 300,addy = 220;    //图块移动增量
+var gameover=false;
+
+window.onload=function(){
+    //给每个图块初始定位，几把整个区域均分后的左上角的坐标值及初始化
+    var gamepanel = document.getElementByIdx_x("game_panel");
+    var subdiv = gamepanel.getElementsByTagName_r("div");  //通过标签名获取集合元素不能丢了Tag---------
+    var subdivlen = subdiv.length;
+    //为每块图块计算初始值，并为其增加鼠标点击事件
+    for(var i = 0;i < subdivlen;i++){
+        var tx = 300*(i%3);
+        var ty = 220*parseInt(i/3,10);
+        subdiv[i].style.left = tx+"px";
+        subdiv[i].style.top = ty+"px";
+        subdiv[i].style.backgroundPosition = "-"+tx+" "+"-"+ty;//设置每个图块的背景图片位置
+       
+        subdiv[i].onclick=function(event){        //-----------------
+        //如果游戏结束，停止图片的移动
+        if(gameover)return;
+        //得到当前被点击图快的坐标   this.style.left或得的坐标值是在px的字符串 必须用parseInt去整----------  
+        var x = parseInt(this.style.left,10);
+        var y = parseInt(this.style.top,10);
+        //满足移动条件是才能移动
+        var moveflagx = ((x - addx == movex) || (x + addx == movex))&&(y == movey);
+        var moveflagy = ((y - addy == movey) || (y + addy == movey))&&(x == movex);
+        //如果x，y有一个方向可以动则将空白未知的坐标付给要移动的图块坐标   交换坐标-----------------
+        if(moveflagx || moveflagy){
+            this.style.left = movex + "px";
+            this.style.top = movey + "px";
+            movex = x; movey = y;
+        }
+        //游戏结束显示动画效果图片   如果胜利则图片不能再移动
+        if(iswin()){
+                    gameover = true;
+                    document.getElementByIdx_x("wingif").style.display="block";
+                }
+        }
+    }
+}
+
+//判断游戏胜利与否  只要移动后的坐标与初始坐标相同则游戏成功
+function iswin(){
+    var gamepanel = document.getElemntById("game_panel");
+    var subdiv = gamepanel.getElementsByTagName_r("div");
+    var subdivlen = subdiv.length;
+    for(var i = 0;i<subdivlen;i++){
+        var tx = 300*(i%3);
+        var ty = 220*parseInt(i/3,10);
+        if(parseInt(subdiv[i].style.left,10) != tx||parseInt(subdiv[i].style.top,10)!=ty){
+            return false;
+        }
+    }
+    return true;
+}
+
+//游戏开始
+function gameStart(){;
+    var gamepanel=document.getElementByIdx_x("game_panel");
+    var subdiv = gamepanel.getElementsByTagName_r("div");
+    var blocknum = new Array();
+    while(blocknum.length<8){
+        var i = parseInt(Math.random()*8,10);//生成不同的随机数------------
+        if(!blocknum.exists(i))
+            blocknum.push(i);
+    }
+    //为为每个区域div重新赋值，及打乱顺序
+    var subdivlen = blocknum.length;
+    for(var i = 0; i < subdivlen; i ++){
+        var tx = 300*(i%3);
+        var ty = 220*parseInt(i/3,10);
+        document.getElementByIdx_x("gameblock"+blocknum[i]).style.left = tx+"px";
+        document.getElementByIdx_x("gameblock"+blocknum[i]).style.top = ty+"px";
+    }    
+ 
+    //隐藏游戏结束后的胜利提示动画图片
+    document.getElementByIdx_x("wingif").style.display="none";
+}
+
+//为数组对象增加方法，该方法判断数组中是否包含了某个元素
+Array.prototype.exists = function(i){        //为数组增加函数----------------
+    var len = this.length;
+    for(var j=0;j<len;j++){
+        if(i ==this[j])
+        return true;
+    }
+    return false;
+}
+
+</script>
+</head>
+
+<body>
+<img src="" width="260px">
+
+<div id="game_panel">
+   <div class="alldiv" id="gameblock0"></div>
+   <div class="alldiv" id="gameblock1"></div>
+   <div class="alldiv" id="gameblock2"></div>
+   <div class="alldiv" id="gameblock3"></div>
+   <div class="alldiv" id="gameblock4"></div>
+   <div class="alldiv" id="gameblock5"></div>
+   <div class="alldiv" id="gameblock6"></div>
+   <div class="alldiv" id="gameblock7"></div>
+</div>
+<input type="button" value="开始游戏" onclick="gameStart()" style="position:absolute; left:500px; top:10px;">
+<img src="a8.gif" width="300px" style="position:absolute;left:600px;top:150px;display:none;" id="wingif"/>
+</body>
+</html>
