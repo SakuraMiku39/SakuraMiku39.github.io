@@ -25,3 +25,15 @@ h7
 {
 	font-weight:bold;
 }
+.div
+{
+	background-color:#5CA6C9;
+	background: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#FFF), to(#5CA6C9)); 
+}
+.div2
+{
+	color:#333;
+	font-style:oblique;
+	font-weight:bold;
+}
+	
